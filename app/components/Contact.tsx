@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 
-function ContactBlock({ label, value, href }: { label: string; value: string; href: string }) {
+function ContactBlock({ label, value, href, download }: { label: string; value: string; href: string; download?: boolean }) {
   const [hover, setHover] = useState(false);
   return (
     <a
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel="noopener noreferrer"
+      download={download || undefined}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
@@ -66,6 +67,12 @@ export default function Contact() {
             label="LinkedIn — fastest reply"
             value="edmar‑cayabyab"
             href="https://www.linkedin.com/in/edmar-cayabyab-1428bb192/"
+          />
+          <ContactBlock
+            label="Download CV"
+            value="Edmar_Cayabyab_CV.docx"
+            href="/cv/Edmar_Cayabyab_CV.docx"
+            download
           />
         </div>
 

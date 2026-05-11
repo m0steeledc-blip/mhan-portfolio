@@ -5,12 +5,12 @@ import Placeholder from "./Placeholder";
 import SectionHeader from "./SectionHeader";
 
 const REELS = [
-  { id: 1, platform: "Facebook", views: "131K", role: "Cinematographer",         title: "Featured Reel · Campaign 01" },
-  { id: 2, platform: "Facebook", views: "111K", role: "Cinematographer",         title: "Featured Reel · Campaign 02" },
-  { id: 3, platform: "TikTok",   views: "82.2K", role: "Editor · Cinematographer", title: "TikTok · Top Performer" },
-  { id: 4, platform: "Facebook", views: "76K",  role: "Cinematographer",         title: "Reel · In‑store Launch" },
-  { id: 5, platform: "Facebook", views: "43K",  role: "Cinematographer",         title: "Reel · Lifestyle Campaign" },
-  { id: 6, platform: "LinkedIn", views: "—",    role: "Director · Editor",       title: "Corporate · Recruitment Film" },
+  { id: 1, platform: "Facebook", views: "131K",  role: "Cinematographer",          title: "Featured Reel · Campaign 01",   videoUrl: "" },
+  { id: 2, platform: "Facebook", views: "111K",  role: "Cinematographer",          title: "Featured Reel · Campaign 02",   videoUrl: "" },
+  { id: 3, platform: "TikTok",   views: "82.2K", role: "Editor · Cinematographer", title: "TikTok · Top Performer",        videoUrl: "" },
+  { id: 4, platform: "Facebook", views: "76K",   role: "Cinematographer",          title: "Reel · In‑store Launch",        videoUrl: "" },
+  { id: 5, platform: "Facebook", views: "43K",   role: "Cinematographer",          title: "Reel · Lifestyle Campaign",     videoUrl: "" },
+  { id: 6, platform: "LinkedIn", views: "—",     role: "Director · Editor",        title: "Corporate · Recruitment Film",  videoUrl: "" },
 ];
 
 interface Reel {
@@ -19,6 +19,7 @@ interface Reel {
   views: string;
   role: string;
   title: string;
+  videoUrl: string;
 }
 
 function ReelCard({ reel, colSpan, ratio }: { reel: Reel; colSpan: number; ratio: string }) {

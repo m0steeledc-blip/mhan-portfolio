@@ -26,6 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mhan-portfolio.vercel.app"),
   title: "Edmar Cayabyab — Senior Multimedia Artist · Brand · Cinematography · AI-augmented",
   description: "Full-pipeline Senior Multimedia Artist. Brand. Cinematography. AI-augmented. Built for scale.",
   openGraph: {
@@ -33,12 +34,15 @@ export const metadata: Metadata = {
     description: "Full-pipeline Senior Multimedia Artist. Brand. Cinematography. AI-augmented. Built for scale.",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${instrumentSerif.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+      <body data-anim="full" className={`${instrumentSerif.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
         <div className="grain" aria-hidden="true" />
         {children}
       </body>

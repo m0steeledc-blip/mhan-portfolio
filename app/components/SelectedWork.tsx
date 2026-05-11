@@ -68,6 +68,7 @@ function WorkCard({ item, colSpan, priority }: { item: WorkItem; colSpan: number
   return (
     <a
       href={item.href}
+      className="work-card"
       style={{
         gridColumn: `span ${colSpan}`,
         display: "flex", flexDirection: "column", gap: 18,

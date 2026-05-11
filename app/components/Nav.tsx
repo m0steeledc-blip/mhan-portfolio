@@ -49,7 +49,7 @@ export default function Nav() {
           </span>
         </a>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
+        <div className="nav-links" style={{ display: "flex", alignItems: "center", gap: 28 }}>
           {links.map(l => (
             <a
               key={l.href}
