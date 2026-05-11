@@ -70,8 +70,8 @@ export default function Contact() {
           />
           <ContactBlock
             label="Download CV"
-            value="Edmar_Cayabyab_CV.docx"
-            href="/cv/Edmar_Cayabyab_CV.docx"
+            value="Edmar_Cayabyab_CV.pdf"
+            href="/cv/Edmar_Cayabyab_CV.pdf"
             download
           />
         </div>
