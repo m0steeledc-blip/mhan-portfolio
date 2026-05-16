@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getCaseStudy, getAllSlugs } from "@/lib/caseStudies";
 import SMPTEBars from "@/app/components/SMPTEBars";
 import BackLink from "@/app/components/BackLink";
+import MotionItem from "@/app/components/MotionItem";
 
 export async function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -19,25 +20,24 @@ export default function CaseStudyPage({ params }: Props) {
     <main style={{ background: "var(--bg)", color: "var(--fg)", minHeight: "100vh" }}>
 
       {/* ── Ident bar ── */}
-      <div style={{
-        borderBottom: "1px solid var(--line)",
-        padding: "0",
-      }}>
-        <div className="container" style={{
-          display: "flex", alignItems: "center", gap: 16,
-          height: 56,
-        }}>
-          <span className="mono" style={{
-            fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase",
-            color: "var(--accent-text)",
-          }}>/ {study.index}</span>
-          <span style={{ flex: 1, height: 1, background: "var(--line)" }} />
-          <span className="mono" style={{
-            fontSize: 10, letterSpacing: ".14em", textTransform: "uppercase",
-            color: "var(--fg-faint)",
-          }}>{study.title.toUpperCase()}</span>
+      <MotionItem>
+        <div style={{ borderBottom: "1px solid var(--line)", padding: "0" }}>
+          <div className="container" style={{
+            display: "flex", alignItems: "center", gap: 16,
+            height: 56,
+          }}>
+            <span className="mono" style={{
+              fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase",
+              color: "var(--accent-text)",
+            }}>/ {study.index}</span>
+            <span style={{ flex: 1, height: 1, background: "var(--line)" }} />
+            <span className="mono" style={{
+              fontSize: 10, letterSpacing: ".14em", textTransform: "uppercase",
+              color: "var(--fg-faint)",
+            }}>{study.title.toUpperCase()}</span>
+          </div>
         </div>
-      </div>
+      </MotionItem>
 
       {/* ── Role + year ── */}
       <div className="container">
@@ -73,8 +73,9 @@ export default function CaseStudyPage({ params }: Props) {
       {/* ── Editorial body ── */}
       <div className="container" style={{ paddingTop: 80, paddingBottom: 40 }}>
         <div style={{ maxWidth: 640 }}>
-          {study.body.map((section) => (
-            <div key={section.label} style={{ marginBottom: 56 }}>
+          {study.body.map((section, i) => (
+            <MotionItem key={section.label} delay={i * 0.1}>
+            <div style={{ marginBottom: 56 }}>
               <div className="mono" style={{
                 fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase",
                 color: "var(--fg-faint)", marginBottom: 20,
@@ -92,25 +93,27 @@ export default function CaseStudyPage({ params }: Props) {
                 }}>{p}</p>
               ))}
             </div>
+            </MotionItem>
           ))}
         </div>
       </div>
 
       {/* ── Amber impact line ── */}
-      <div style={{
-        borderTop: "1px solid var(--line)",
-        borderBottom: "1px solid var(--line)",
-        padding: "32px 0",
-        margin: "0",
-      }}>
-        <div className="container">
-          <p className="mono" style={{
-            margin: 0,
-            fontSize: "clamp(12px,1.1vw,14px)", letterSpacing: ".12em", textTransform: "uppercase",
-            color: "var(--accent-text)", lineHeight: 1.7,
-          }}>{study.impactLine}</p>
+      <MotionItem>
+        <div style={{
+          borderTop: "1px solid var(--line)",
+          borderBottom: "1px solid var(--line)",
+          padding: "32px 0",
+        }}>
+          <div className="container">
+            <p className="mono" style={{
+              margin: 0,
+              fontSize: "clamp(12px,1.1vw,14px)", letterSpacing: ".12em", textTransform: "uppercase",
+              color: "var(--accent-text)", lineHeight: 1.7,
+            }}>{study.impactLine}</p>
+          </div>
         </div>
-      </div>
+      </MotionItem>
 
       {/* ── Back to Work ── */}
       <div className="container" style={{ paddingTop: 48, paddingBottom: 80 }}>

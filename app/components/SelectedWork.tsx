@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 
 interface WorkItem {
@@ -125,15 +126,23 @@ function WorkRow({ item }: { item: WorkItem }) {
 }
 
 export default function SelectedWork() {
+  const reduce = useReducedMotion();
+  const fadeUp = (delay = 0) => ({
+    initial: reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-80px" },
+    transition: { duration: reduce ? 0 : 0.5, ease: "easeOut" as const, delay: reduce ? 0 : delay },
+  });
+
   return (
     <section id="work" style={{ paddingTop: "var(--pad-section)", paddingBottom: "var(--pad-section)" }}>
       <div className="container">
 
         {/* Section ident — slate divider */}
-        <div style={{
-          display: "flex", alignItems: "center", gap: 16,
-          paddingBottom: 20, borderBottom: "1px solid var(--line-mid)",
-        }}>
+        <motion.div
+          {...fadeUp(0)}
+          style={{ display: "flex", alignItems: "center", gap: 16, paddingBottom: 20, borderBottom: "1px solid var(--line-mid)" }}
+        >
           <span className="mono" style={{
             fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase",
             color: "var(--accent-text)",
@@ -143,9 +152,13 @@ export default function SelectedWork() {
             fontSize: 10, letterSpacing: ".16em", textTransform: "uppercase",
             color: "var(--fg-faint)",
           }}>SELECTED WORK</span>
-        </div>
+        </motion.div>
 
-        {WORK.map(w => <WorkRow key={w.index} item={w} />)}
+        {WORK.map((w, i) => (
+          <motion.div key={w.index} {...fadeUp(i * 0.1)}>
+            <WorkRow item={w} />
+          </motion.div>
+        ))}
 
       </div>
     </section>

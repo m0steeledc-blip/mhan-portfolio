@@ -87,6 +87,10 @@ img, video { display: block; max-width: 100%; }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
+
+/* Hide scrollbar on horizontal strip — keeps native scroll */
+.reels-strip { scrollbar-width: none; -ms-overflow-style: none; }
+.reels-strip::-webkit-scrollbar { display: none; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--line-mid); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--line-strong); }

@@ -1,3 +1,6 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
 const KIT = [
@@ -27,6 +30,14 @@ const POST_STACK = [
 ];
 
 export default function About() {
+  const reduce = useReducedMotion();
+  const fadeUp = (delay = 0) => ({
+    initial: reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-80px" },
+    transition: { duration: reduce ? 0 : 0.5, ease: "easeOut" as const, delay: reduce ? 0 : delay },
+  });
+
   return (
     <section id="about" style={{ paddingTop: "var(--pad-section)", paddingBottom: "var(--pad-section)" }}>
       <div className="container">
@@ -68,10 +79,9 @@ export default function About() {
         >
 
           {/* Camera kit */}
-          <div style={{
-            flex: 1, padding: "32px 28px",
-            borderBottom: "1px solid var(--line)",
-          }}
+          <motion.div
+            {...fadeUp(0)}
+            style={{ flex: 1, padding: "32px 28px", borderBottom: "1px solid var(--line)" }}
             className="md:border-b-0 md:border-r"
           >
             <div className="mono" style={{
@@ -89,13 +99,12 @@ export default function About() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Post stack */}
-          <div style={{
-            flex: 1, padding: "32px 28px",
-            borderBottom: "1px solid var(--line)",
-          }}
+          <motion.div
+            {...fadeUp(0.1)}
+            style={{ flex: 1, padding: "32px 28px", borderBottom: "1px solid var(--line)" }}
             className="md:border-b-0 md:border-r"
           >
             <div className="mono" style={{
@@ -113,10 +122,10 @@ export default function About() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* AI stack */}
-          <div style={{ flex: 1, padding: "32px 28px" }}>
+          <motion.div {...fadeUp(0.2)} style={{ flex: 1, padding: "32px 28px" }}>
             <div className="mono" style={{
               fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase",
               color: "var(--fg-faint)", marginBottom: 20,
@@ -138,7 +147,7 @@ export default function About() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
         </div>
       </div>

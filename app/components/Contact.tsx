@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
 interface ContactLink {
@@ -69,6 +70,14 @@ function ContactRow({ link }: { link: ContactLink }) {
 }
 
 export default function Contact() {
+  const reduce = useReducedMotion();
+  const fadeUp = (delay = 0) => ({
+    initial: reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-80px" },
+    transition: { duration: reduce ? 0 : 0.5, ease: "easeOut" as const, delay: reduce ? 0 : delay },
+  });
+
   return (
     <section id="contact" style={{ paddingTop: "var(--pad-section)", paddingBottom: 80 }}>
       <div className="container">
@@ -76,7 +85,11 @@ export default function Contact() {
 
         {/* Contact links */}
         <div style={{ maxWidth: 720, marginTop: 48 }}>
-          {LINKS.map(l => <ContactRow key={l.href} link={l} />)}
+          {LINKS.map((l, i) => (
+            <motion.div key={l.href} {...fadeUp(i * 0.1)}>
+              <ContactRow link={l} />
+            </motion.div>
+          ))}
         </div>
 
         <div className="mono" style={{
