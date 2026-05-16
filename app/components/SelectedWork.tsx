@@ -1,166 +1,152 @@
 "use client";
 
 import { useState } from "react";
-import Placeholder from "./Placeholder";
-import SectionHeader from "./SectionHeader";
+import Link from "next/link";
 
-const WORK_ITEMS = [
+interface WorkItem {
+  index: string;
+  slug: string;
+  title: string;
+  role: string;
+  impact: string;
+  label: string;
+}
+
+const WORK: WorkItem[] = [
   {
-    id: "eo-brand",
+    index: "01",
+    slug: "eo-brand-identity",
     title: "EO Brand Identity Redesign",
-    role: "Concept Lead · Brand Designer",
-    year: "2022 — Present",
-    summary: "Winning concept from internal submissions. Refined with the Creative Director. Now the active standard across 380+ branches, OOH, signage, broadcast and digital.",
-    tags: ["Brand Identity", "National Rollout", "Print + OOH + Digital"],
-    metric: "380+ branches",
-    href: "#case-eo",
-    ratio: "5/4",
+    role: "Art Direction · Brand Identity",
+    impact: "Active standard, 380+ branches since 2022",
+    label: "EO BRAND · 2022–PRESENT",
   },
   {
-    id: "recruitment-film",
-    title: "Recruitment & Corporate Film",
-    role: "Director · Cinematographer · Editor",
-    year: "2024 — Present",
-    summary: "Directed, shot and cut the in‑house recruitment and corporate film series — sole production unit for internal comms across the 380‑branch network.",
-    tags: ["Directing", "Cinematography", "Editorial Cut"],
-    metric: "Sole in‑house unit",
-    href: "#case-film",
-    ratio: "16/9",
+    index: "02",
+    slug: "eo-led-asset-hub",
+    title: "EO In‑Store LED Asset Hub",
+    role: "UI Design · Web Build · Systems",
+    impact: "28 variants · 380 branches · solo build",
+    label: "LED ASSET HUB · 2024",
   },
   {
-    id: "led-hub",
-    title: "In‑Store LED Asset Hub",
-    role: "Designer · Builder",
-    year: "2024",
-    summary: "Web tool for the MIS/Engineering team. Distributes 28 LED resize variants to branches via Drive. Now the internal standard for nationwide deployment.",
-    tags: ["Creative Tech", "UI/UX", "Internal Tool"],
-    metric: "28 variants × 380 branches",
-    href: "#case-led",
-    ratio: "16/10",
-  },
-  {
-    id: "ooh",
-    title: "OOH + In‑Store LED",
-    role: "Designer · Motion",
-    year: "2022 — Present",
-    summary: "Billboard artwork and animated LED content for 80+ mall branches (SM, Robinsons, Ayala) and national highway sites.",
-    tags: ["Billboards", "Motion Graphics", "LED"],
-    metric: "80+ mall branches",
-    href: "#reels",
-    ratio: "5/4",
+    index: "03",
+    slug: "eo-corporate-film",
+    title: "EO Corporate Film",
+    role: "Full Production Pipeline",
+    impact: "Concept → pre‑pro → shoot → post · ~1 year",
+    label: "CORPORATE FILM · 2024–PRESENT",
   },
 ];
 
-interface WorkItem {
-  id: string;
-  title: string;
-  role: string;
-  year: string;
-  summary: string;
-  tags: string[];
-  metric: string;
-  href: string;
-  ratio: string;
+function SMPTEBlock({ label }: { label: string }) {
+  return (
+    <div className="placeholder-bars" style={{ width: "100%", aspectRatio: "16/9" }}>
+      <div className="bars-label">
+        <span>{label}</span>
+        <span>NO SIGNAL</span>
+      </div>
+    </div>
+  );
 }
 
-function WorkCard({ item, colSpan, priority }: { item: WorkItem; colSpan: number; priority: boolean }) {
+function WorkRow({ item }: { item: WorkItem }) {
   const [hover, setHover] = useState(false);
+
   return (
-    <a
-      href={item.href}
-      className="work-card"
+    <Link
+      href={`/work/${item.slug}`}
       style={{
-        gridColumn: `span ${colSpan}`,
-        display: "flex", flexDirection: "column", gap: 18,
-        position: "relative",
+        display: "block",
+        borderBottom: "1px solid var(--line)",
+        background: hover ? "rgba(240,236,226,.018)" : "transparent",
+        transition: "background .25s",
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div style={{
-        position: "relative", overflow: "hidden",
-        border: "1px solid var(--line)",
-        transition: "border-color .35s, transform .5s",
-        transform: hover ? "translateY(-4px)" : "translateY(0)",
-        borderColor: hover ? "var(--line-strong)" : "var(--line)",
-      }}>
-        <Placeholder label={`${item.title.toUpperCase()} · cover image`} ratio={item.ratio} tone="warm" />
-        <div style={{ position: "absolute", left: 16, top: 16, display: "flex", gap: 8, alignItems: "center" }}>
-          <span className="mono" style={{
-            fontSize: 10, letterSpacing: ".14em", textTransform: "uppercase",
-            padding: "5px 10px", background: "rgba(10,9,7,.62)",
-            backdropFilter: "blur(6px)", color: "var(--fg)",
-            border: "1px solid var(--line-strong)",
-          }}>{item.year}</span>
-          {priority && (
-            <span className="mono" style={{
-              fontSize: 10, letterSpacing: ".14em", textTransform: "uppercase",
-              padding: "5px 10px", background: "var(--accent)", color: "var(--bg)",
-            }}>Featured</span>
-          )}
-        </div>
-        <div style={{
-          position: "absolute", right: 16, bottom: 16,
-          padding: "8px 12px",
-          background: "rgba(10,9,7,.7)", backdropFilter: "blur(8px)",
-          border: "1px solid var(--line-strong)",
-          opacity: hover ? 1 : 0, transition: "opacity .25s",
-        }}>
-          <span className="mono" style={{ fontSize: 11, letterSpacing: ".12em", textTransform: "uppercase" }}>
-            View case →
-          </span>
-        </div>
-      </div>
+      <div className="flex flex-col md:flex-row">
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 24 }}>
-        <div style={{ flex: 1 }}>
-          <h3 className="serif" style={{
-            margin: 0, fontSize: "clamp(26px, 2.4vw, 36px)", lineHeight: 1.05,
-            letterSpacing: "-.01em", fontWeight: 400,
-          }}>
-            {item.title}
-          </h3>
-          <div className="mono" style={{
-            marginTop: 8, fontSize: 11, letterSpacing: ".12em", textTransform: "uppercase",
-            color: "var(--fg-dim)",
-          }}>
-            {item.role}
-          </div>
-          <p style={{ marginTop: 14, color: "var(--fg-dim)", fontSize: 15, lineHeight: 1.55, maxWidth: 520 }}>
-            {item.summary}
-          </p>
-          <div style={{ display: "flex", gap: 8, marginTop: 14, flexWrap: "wrap" }}>
-            {item.tags.map(t => (
-              <span key={t} className="mono" style={{
-                fontSize: 10, letterSpacing: ".1em", textTransform: "uppercase",
-                padding: "4px 10px", border: "1px solid var(--line)", color: "var(--fg-dim)",
-              }}>{t}</span>
-            ))}
-          </div>
+        {/* Slate strip — top bar on mobile, narrow left column on desktop */}
+        <div
+          className="flex flex-row items-center justify-between py-4 border-b md:flex-col md:items-center md:justify-center md:border-b-0 md:border-r md:w-16 md:py-0"
+          style={{ borderColor: "var(--line)", flexShrink: 0 }}
+        >
+          <span className="mono" style={{
+            fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase",
+            color: hover ? "var(--accent)" : "var(--accent-text)",
+            transition: "color .25s",
+          }}>/ {item.index}</span>
+          {/* Label visible on mobile only — collapses on desktop */}
+          <span className="mono md:hidden" style={{
+            fontSize: 10, letterSpacing: ".12em", textTransform: "uppercase",
+            color: "var(--fg-faint)",
+          }}>{item.label}</span>
         </div>
-        <div style={{ textAlign: "right", flexShrink: 0 }}>
-          <div className="serif italic" style={{ fontSize: 28, lineHeight: 1, color: "var(--accent)" }}>
-            {item.metric}
+
+        {/* SMPTE placeholder + text info */}
+        <div className="flex flex-col md:flex-row flex-1">
+
+          {/* SMPTE — 3/5 width on desktop, full width on mobile */}
+          <div className="w-full md:w-3/5">
+            <SMPTEBlock label={item.label} />
           </div>
+
+          {/* Text — 2/5 width on desktop, full width on mobile */}
+          <div
+            className="flex flex-col justify-center w-full md:w-2/5"
+            style={{ padding: "clamp(24px,3vw,48px) clamp(20px,3vw,48px)" }}
+          >
+            <h3 className="serif" style={{
+              margin: 0,
+              fontSize: "clamp(22px,2.2vw,32px)",
+              lineHeight: 1.1,
+              fontWeight: 400,
+              letterSpacing: "-.01em",
+              color: hover ? "var(--accent-text)" : "var(--fg)",
+              transition: "color .25s",
+            }}>{item.title}</h3>
+
+            <div className="mono" style={{
+              marginTop: 16, fontSize: 11, letterSpacing: ".12em", textTransform: "uppercase",
+              color: "var(--fg-dim)",
+            }}>{item.role}</div>
+
+            <div className="mono" style={{
+              marginTop: 10, fontSize: 10.5, letterSpacing: ".1em", textTransform: "uppercase",
+              color: "var(--fg-faint)",
+            }}>{item.impact}</div>
+          </div>
+
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
 export default function SelectedWork() {
   return (
-    <section id="work" style={{ paddingTop: 120, paddingBottom: 120, position: "relative" }}>
+    <section id="work" style={{ paddingTop: "var(--pad-section)", paddingBottom: "var(--pad-section)" }}>
       <div className="container">
-        <SectionHeader index="01" title="Selected Work" subtitle="Four campaigns. One brand at national scale." />
+
+        {/* Section ident — slate divider */}
         <div style={{
-          display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: 24, marginTop: 56,
+          display: "flex", alignItems: "center", gap: 16,
+          paddingBottom: 20, borderBottom: "1px solid var(--line-mid)",
         }}>
-          {WORK_ITEMS.map((w, i) => {
-            const span = i % 4 === 0 || i % 4 === 3 ? 7 : 5;
-            return <WorkCard key={w.id} item={w} colSpan={span} priority={i === 0} />;
-          })}
+          <span className="mono" style={{
+            fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase",
+            color: "var(--accent-text)",
+          }}>/ 01</span>
+          <span style={{ flex: 1, height: 1, background: "var(--line)", display: "inline-block" }} />
+          <span className="mono" style={{
+            fontSize: 10, letterSpacing: ".16em", textTransform: "uppercase",
+            color: "var(--fg-faint)",
+          }}>SELECTED WORK</span>
         </div>
+
+        {WORK.map(w => <WorkRow key={w.index} item={w} />)}
+
       </div>
     </section>
   );

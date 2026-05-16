@@ -1,88 +1,145 @@
-import Placeholder from "./Placeholder";
 import SectionHeader from "./SectionHeader";
 
-function ToolChip({ name, sub }: { name: string; sub: string }) {
-  return (
-    <div style={{
-      padding: "12px 14px", border: "1px solid var(--line)",
-      background: "rgba(245,241,234,.015)",
-    }}>
-      <div style={{ fontSize: 14, color: "var(--fg)" }}>{name}</div>
-      <div className="mono" style={{
-        fontSize: 10, letterSpacing: ".1em", color: "var(--fg-faint)", marginTop: 4,
-      }}>{sub}</div>
-    </div>
-  );
-}
+const KIT = [
+  "Canon R7",
+  "Canon 90D",
+  "DJI RS3",
+  "Canon EF 24‑70 f/2.8L II",
+  "Samyang 35 T1.5 Cine",
+  "Feelworld monitor",
+];
+
+const AI_STACK = [
+  { name: "Claude",        sub: "Long-form · craft · code" },
+  { name: "Adobe Firefly", sub: "Gen Fill · Expand"        },
+  { name: "ChatGPT",       sub: "Scripting · ideation"     },
+  { name: "Gemini",        sub: "Visual reference"         },
+  { name: "NotebookLM",    sub: "Brief synthesis"          },
+  { name: "Perplexity",    sub: "Trend research"           },
+];
+
+const POST_STACK = [
+  "Adobe Premiere Pro",
+  "DaVinci Resolve",
+  "After Effects",
+  "Adobe Audition",
+  "Illustrator · Photoshop",
+];
 
 export default function About() {
   return (
-    <section id="about" style={{ paddingTop: 120, paddingBottom: 120 }}>
+    <section id="about" style={{ paddingTop: "var(--pad-section)", paddingBottom: "var(--pad-section)" }}>
       <div className="container">
-        <SectionHeader index="05" title="About + Process" subtitle="How I work" />
+        <SectionHeader index="05" title="About" subtitle="Metro Manila · UTC+8" />
 
-        <div style={{
-          display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.1fr)", gap: 64,
-          marginTop: 56, alignItems: "start",
-        }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <Placeholder label="PORTRAIT · drop headshot.jpg" ratio="4/5" tone="warm" />
-            <div className="mono" style={{ fontSize: 11, letterSpacing: ".14em", color: "var(--fg-dim)" }}>
-              MHAN CAYABYAB · METRO MANILA, PH
-            </div>
+        {/* Bio — single column, editorial */}
+        <div style={{ maxWidth: 680, marginTop: 48 }}>
+          <p className="serif" style={{
+            margin: 0, fontSize: "clamp(20px,1.8vw,26px)", lineHeight: 1.45,
+            fontWeight: 400, color: "var(--fg)",
+          }}>
+            Four years at EO‑Executive Optical — one of the Philippines&rsquo; largest optical retail chains
+            with 380+ branches nationwide.
+          </p>
+          <p style={{
+            margin: "20px 0 0", fontSize: 16, lineHeight: 1.7,
+            color: "var(--fg-dim)", fontWeight: 300,
+          }}>
+            Started as Multimedia Artist in 2022. Won the company&rsquo;s brand identity redesign that same year.
+            Ran the full video pipeline as director and DP. Promoted to Senior in three years.
+            Today I lead a four‑person junior creative team.
+          </p>
+          <p style={{
+            margin: "16px 0 0", fontSize: 16, lineHeight: 1.7,
+            color: "var(--fg-dim)", fontWeight: 300,
+          }}>
+            Equally at home calling a shot list at 6am, color‑grading at midnight, building a brand system
+            in Illustrator, or wiring up an internal tool in HTML when no one else will.
+          </p>
+        </div>
+
+        {/* Three-column kit + stack section */}
+        <div
+          className="flex flex-col md:flex-row"
+          style={{
+            marginTop: 64, gap: 0,
+            border: "1px solid var(--line)",
+          }}
+        >
+
+          {/* Camera kit */}
+          <div style={{
+            flex: 1, padding: "32px 28px",
+            borderBottom: "1px solid var(--line)",
+          }}
+            className="md:border-b-0 md:border-r"
+          >
+            <div className="mono" style={{
+              fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase",
+              color: "var(--fg-faint)", marginBottom: 20,
+            }}>Camera Kit</div>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+              {KIT.map(item => (
+                <li key={item} style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                  <span className="mono" style={{ fontSize: 10, color: "var(--accent-text)", flexShrink: 0 }}>—</span>
+                  <span className="mono" style={{
+                    fontSize: 11, letterSpacing: ".08em", textTransform: "uppercase",
+                    color: "var(--fg-dim)",
+                  }}>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-            <p className="serif" style={{
-              fontSize: "clamp(26px, 2.4vw, 34px)", lineHeight: 1.3, margin: 0, fontWeight: 400,
-            }}>
-              I&rsquo;m a multimedia generalist with a{" "}
-              <span className="italic" style={{ color: "var(--accent)" }}>cinematographer&rsquo;s eye</span>{" "}
-              and a{" "}
-              <span className="italic" style={{ color: "var(--accent)" }}>creative technologist&rsquo;s stack</span>.
-            </p>
-
-            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: "var(--fg-dim)" }}>
-              Four years at EO‑Executive Optical — one of the Philippines&rsquo; largest optical retail chains
-              with 380+ branches nationwide. I started as Multimedia Artist in 2022, won the company&rsquo;s
-              brand identity redesign, ran the full video pipeline as director and DP, and got promoted to
-              Senior in three years. Today I lead a four‑person junior creative team.
-            </p>
-
-            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: "var(--fg-dim)" }}>
-              I&rsquo;m equally at home calling a shot list at 6am on location, color‑grading in Resolve at
-              midnight, building a brand system in Illustrator, or wiring up an internal tool in HTML when
-              no one else will.
-            </p>
-
-            <div style={{
-              marginTop: 8, padding: 28, border: "1px solid var(--line)",
-              background: "rgba(245,241,234,.02)",
-            }}>
-              <div className="mono" style={{
-                fontSize: 11, letterSpacing: ".18em", textTransform: "uppercase",
-                color: "var(--accent)", display: "flex", alignItems: "center", gap: 10,
-              }}>
-                <span style={{
-                  display: "inline-block", width: 6, height: 6,
-                  background: "var(--accent)", borderRadius: 999,
-                }} />
-                AI‑Augmented Practice
-              </div>
-              <p className="serif" style={{ margin: "14px 0 0", fontSize: 22, lineHeight: 1.35 }}>
-                I bring AI into ideation, scripting and production to move faster without dropping the
-                brand standard.
-              </p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginTop: 22 }}>
-                <ToolChip name="Adobe Firefly" sub="Gen Fill · Expand" />
-                <ToolChip name="ChatGPT"       sub="Scripting · ideation" />
-                <ToolChip name="Claude"        sub="Long‑form · craft" />
-                <ToolChip name="Gemini"        sub="Visual reference" />
-                <ToolChip name="NotebookLM"    sub="Brief synthesis" />
-                <ToolChip name="Perplexity"    sub="Trend research" />
-              </div>
-            </div>
+          {/* Post stack */}
+          <div style={{
+            flex: 1, padding: "32px 28px",
+            borderBottom: "1px solid var(--line)",
+          }}
+            className="md:border-b-0 md:border-r"
+          >
+            <div className="mono" style={{
+              fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase",
+              color: "var(--fg-faint)", marginBottom: 20,
+            }}>Post Stack</div>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+              {POST_STACK.map(item => (
+                <li key={item} style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                  <span className="mono" style={{ fontSize: 10, color: "var(--accent-text)", flexShrink: 0 }}>—</span>
+                  <span className="mono" style={{
+                    fontSize: 11, letterSpacing: ".08em", textTransform: "uppercase",
+                    color: "var(--fg-dim)",
+                  }}>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          {/* AI stack */}
+          <div style={{ flex: 1, padding: "32px 28px" }}>
+            <div className="mono" style={{
+              fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase",
+              color: "var(--fg-faint)", marginBottom: 20,
+            }}>AI Stack</div>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+              {AI_STACK.map(item => (
+                <li key={item.name} style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                  <span className="mono" style={{ fontSize: 10, color: "var(--accent-text)", flexShrink: 0 }}>—</span>
+                  <div>
+                    <span className="mono" style={{
+                      fontSize: 11, letterSpacing: ".08em", textTransform: "uppercase",
+                      color: "var(--fg-dim)",
+                    }}>{item.name}</span>
+                    <span className="mono" style={{
+                      fontSize: 10, letterSpacing: ".06em", textTransform: "uppercase",
+                      color: "var(--fg-faint)", marginLeft: 8,
+                    }}>{item.sub}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
       </div>
     </section>
